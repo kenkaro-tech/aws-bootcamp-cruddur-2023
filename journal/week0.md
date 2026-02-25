@@ -68,7 +68,7 @@ You should see something like this:
 {
     "UserId": "AIFBZRJIQN2ONP4ET4EK4",
     "Account": "655602346534",
-    "Arn": "arn:aws:iam::655602346534:user/andrewcloudcamp"
+    "Arn": "arn:aws:iam::655602346534:user/kenkaro-tech"
 }
 ```
 
