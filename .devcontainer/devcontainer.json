@@ -17,7 +17,9 @@
         "moby": false
       },
       "ghcr.io/devcontainers/features/python:1": {},
-      "ghcr.io/devcontainers/features/node:1": {},
+      "ghcr.io/devcontainers/features/node:1": {
+        "postCreateCommad": "cd frontend-react-js && npm install"
+      },
       "ghcr.io/devcontainers/features/aws-cli:1": {},
       "ghcr.io/itsmechlark/features/postgresql:1": {}
     }
