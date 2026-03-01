@@ -4,11 +4,14 @@ services:
     environment:
       FRONTEND_URL: "https://3000--019c8fdf-783a-74eb-bddd-cf5aafde74a4.eu-central-1-01.gitpod.dev"
       BACKEND_URL: "https://4567--019c8fdf-783a-74eb-bddd-cf5aafde74a4.eu-central-1-01.gitpod.dev"
-      OTEL_SERVICE_NAME: 'backend-flask'
+      OTEL_SERVICE_NAME: "backend-flask"
       OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
       OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
       AWS_XRAY_URL: "*4567--019c8fdf-783a-74eb-bddd-cf5aafde74a4.eu-central-1-01*"
       AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
+      AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
+      AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
+      AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
     build: ./backend-flask
     ports:
       - "4567:4567"
