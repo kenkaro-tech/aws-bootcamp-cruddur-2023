@@ -2,12 +2,12 @@ version: "3.8"
 services:
   backend-flask:
     environment:
-      FRONTEND_URL: "https://3000--019cab17-1191-7cc0-b494-100284acabdf.eu-central-1-01.gitpod.dev"
-      BACKEND_URL: "https://4567--019cab17-1191-7cc0-b494-100284acabdf.eu-central-1-01.gitpod.dev "
+      FRONTEND_URL: "https://3000--019cafc1-65a0-7143-b125-799f97bc6f05.eu-central-1-01.gitpod.dev"
+      BACKEND_URL: "https://4567--019cafc1-65a0-7143-b125-799f97bc6f05.eu-central-1-01.gitpod.dev "
       OTEL_SERVICE_NAME: "backend-flask"
       OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
       OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
-      AWS_XRAY_URL: "*4567--019cab17-1191-7cc0-b494-100284acabdf.eu-central-1-01.gitpod.dev*"
+      AWS_XRAY_URL: "*4567--019cafc1-65a0-7143-b125-799f97bc6f05.eu-central-1-01.gitpod.dev*"
       AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
       AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
       AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
@@ -20,9 +20,9 @@ services:
       - ./backend-flask:/backend-flask
   frontend-react-js:
     environment:
-      REACT_APP_BACKEND_URL: "https://4567--019cab17-1191-7cc0-b494-100284acabdf.eu-central-1-01.gitpod.dev"
+      REACT_APP_BACKEND_URL: "https://4567--019cafc1-65a0-7143-b125-799f97bc6f05.eu-central-1-01.gitpod.dev"
       REACT_APP_AWS_PROJECT_REGION: "${AWS_DEFAULT_REGION}"
-      REACT_APP_AWS_COGNITO_REGION: "{AWS_DEFAULT_REGION}"
+      REACT_APP_AWS_COGNITO_REGION: "${AWS_DEFAULT_REGION}"
       REACT_APP_AWS_USER_POOLS_ID: "ca-central-1_RKgokcR6x"
       REACT_APP_CLIENT_ID: "71ing20r185i5ovs3sbiu6ko4l"
     build: ./frontend-react-js
