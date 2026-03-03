@@ -1,6 +1,7 @@
+/* eslint-disable */
 import './RecoverPage.css';
 import React from "react";
-import {ReactComponent as Logo} from '../components/svg/logo.svg';
+import { ReactComponent as Logo } from '../components/svg/logo.svg';
 import { Link } from "react-router-dom";
 
 export default function RecoverPage() {
@@ -37,12 +38,12 @@ export default function RecoverPage() {
   }
 
   let el_errors;
-  if (errors){
+  if (errors) {
     el_errors = <div className='errors'>{errors}</div>;
   }
 
   const send_code = () => {
-    return (<form 
+    return (<form
       className='recover_form'
       onSubmit={onsubmit_send_code}
     >
@@ -53,7 +54,7 @@ export default function RecoverPage() {
           <input
             type="text"
             value={username}
-            onChange={username_onchange} 
+            onChange={username_onchange}
           />
         </div>
       </div>
@@ -67,7 +68,7 @@ export default function RecoverPage() {
   }
 
   const confirm_code = () => {
-    return (<form 
+    return (<form
       className='recover_form'
       onSubmit={onsubmit_confirm_code}
     >
@@ -78,7 +79,7 @@ export default function RecoverPage() {
           <input
             type="text"
             value={code}
-            onChange={code_onchange} 
+            onChange={code_onchange}
           />
         </div>
         <div className='field text_field password'>
@@ -86,7 +87,7 @@ export default function RecoverPage() {
           <input
             type="password"
             value={password}
-            onChange={password_onchange} 
+            onChange={password_onchange}
           />
         </div>
         <div className='field text_field password_again'>
@@ -94,7 +95,7 @@ export default function RecoverPage() {
           <input
             type="password"
             value={passwordAgain}
-            onChange={password_again_onchange} 
+            onChange={password_again_onchange}
           />
         </div>
       </div>
@@ -112,16 +113,16 @@ export default function RecoverPage() {
       <Link to="/signin" className="proceed">Proceed to Signin</Link>
     </form>
     )
-    }
+  }
 
   let form;
-  if (formState == 'send_code') {
+  if (formState === 'send_code') {
     form = send_code()
   }
-  else if (formState == 'confirm_code') {
+  else if (formState === 'confirm_code') {
     form = confirm_code()
   }
-  else if (formState == 'success') {
+  else if (formState === 'success') {
     form = success()
   }
 
