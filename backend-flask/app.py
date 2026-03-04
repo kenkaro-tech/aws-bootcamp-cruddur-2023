@@ -38,16 +38,26 @@ import rollbar
 import rollbar.contrib.flask
 from flask import got_request_exception
 
-# Configuring Logger to Use CloudWatch
-"""
-LOGGER = logging.getLogger(__name__)
+# Flask AWS Cognito
+from flask import jsonify, redirect, session, url_for
+from flask_cognito_lib import CognitoAuth
+from flask_cognito_lib.decorators import (
+    auth_required,
+    cognito_login,
+    cognito_login_callback,
+    cognito_logout,
+    cognito_refresh_callback,
+)
+
+"""# Configuring Logger to Use CloudWatch
+LOGGER = logging.getLogger("CloudWatch")
 LOGGER.setLevel(logging.DEBUG)
 console_handler = logging.StreamHandler()
 cw_handler = watchtower.CloudWatchLogHandler(log_group='cruddur')
 LOGGER.addHandler(console_handler)
 LOGGER.addHandler(cw_handler)
 LOGGER.info("test logs")
-"""
+
 
 # Honeycomb ----------
 # Initialize tracing and an exporter that can send data to Honeycomb
@@ -61,11 +71,31 @@ simple_processor = SimpleSpanProcessor(ConsoleSpanExporter())
 provider.add_span_processor(simple_processor)
 
 trace.set_tracer_provider(provider)
-tracer = trace.get_tracer(__name__)
+tracer = trace.get_tracer(__name__)"""
 
 app = Flask(__name__)
 
-# Rollbar
+frontend = os.getenv("FRONTEND_URL")
+backend = os.getenv("BACKEND_URL")
+origins = [frontend, backend]
+
+cors = CORS(
+    app,
+    resources={r"/api/*": {"origins": origins}},
+    allow_headers=['Content-Type', 'Authorization'],
+    expose_headers=['Authorization'],
+    methods=["OPTIONS, GET, HEAD, POST"]
+)
+
+# Configuration required for CognitoAuth
+app.config["AWS_REGION"] = os.getenv("AWS_DEFAULT_REGION")
+app.config["AWS_COGNITO_USER_POOL_ID"] = os.getenv("AWS_COGNITO_USER_POOL_ID")
+app.config["AWS_COGNITO_USER_POOL_CLIENT_ID"] = os.getenv(
+    "AWS_COGNITO_USER_POOL_CLIENT_ID")
+
+auth = CognitoAuth(app)
+
+"""# Rollbar
 rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
 with app.app_context():
     rollbar.init(rollbar_access_token, environment='production')
@@ -80,18 +110,7 @@ XRayMiddleware(app, xray_recorder)
 
 # Initialize automatic instrumentation with Flask
 FlaskInstrumentor().instrument_app(app)
-RequestsInstrumentor().instrument()
-
-frontend = os.getenv("FRONTEND_URL")
-backend = os.getenv("BACKEND_URL")
-origins = [frontend, backend]
-cors = CORS(
-    app,
-    resources={r"/api/*": {"origins": origins}},
-    expose_headers="location,link",
-    allow_headers="content-type,if-modified-since",
-    methods="OPTIONS,GET,HEAD,POST",
-)
+RequestsInstrumentor().instrument()"""
 
 
 """@app.after_request
@@ -101,10 +120,12 @@ def after_request(response):
                  request.method, request.scheme, request.full_path, response.status)
     return response"""
 
+
 @app.route('/rollbar/test')
 def rollbar_test():
     rollbar.report_message('Hello World!', 'warning')
     return "Hello Worldk!"
+
 
 @app.route("/api/message_groups", methods=["GET"])
 def data_message_groups():

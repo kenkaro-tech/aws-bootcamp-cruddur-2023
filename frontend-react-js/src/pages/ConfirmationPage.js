@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { ReactComponent as Logo } from "../components/svg/logo.svg";
 
 // [TODO] Authenication
-import { Auth } from "aws-amplify";
+import { resendSignUpCode, confirmSignUp } from "aws-amplify/auth";
 
 export default function ConfirmationPage() {
   const [email, setEmail] = React.useState("");
@@ -24,7 +24,7 @@ export default function ConfirmationPage() {
   const resend_code = async (event) => {
     setErrors("");
     try {
-      await Auth.resendSignUp(email);
+      await resendSignUpCode(email);
       console.log("code resent successfully");
       setCodeSent(true);
     } catch (err) {
@@ -32,11 +32,11 @@ export default function ConfirmationPage() {
       // does cognito always return english
       // for this to be an okay match?
       console.log(err);
-      if (err.message == "Username cannot be empty") {
+      if (err.message === "Username cannot be empty") {
         setErrors(
           "You need to provide an email in order to send Resend Activiation Code",
         );
-      } else if (err.message == "Username/client id combination not found.") {
+      } else if (err.message === "Username/client id combination not found.") {
         setErrors("Email is invalid or cannot be found.");
       }
     }
@@ -46,7 +46,7 @@ export default function ConfirmationPage() {
     event.preventDefault();
     setErrors("");
     try {
-      await Auth.confirmSignUp(email, code);
+      await confirmSignUp({ username: email, confirmationCode: code });
       window.location.href = "/";
     } catch (error) {
       setErrors(error.message);
