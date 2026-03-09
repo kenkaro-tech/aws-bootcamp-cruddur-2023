@@ -2,12 +2,12 @@ version: "3.8"
 services:
   backend-flask:
     environment:
-      FRONTEND_URL: "https://3000--019cbdcc-6028-7c32-82c5-fed902714ec3.eu-central-1-01.gitpod.dev"
-      BACKEND_URL: "https://4567--019cbdcc-6028-7c32-82c5-fed902714ec3.eu-central-1-01.gitpod.dev "
+      FRONTEND_URL: "https://3000--019cc56b-29b3-702e-a13f-43a24c0ef187.eu-central-1-01.gitpod.dev"
+      BACKEND_URL: "https://4567--019cc56b-29b3-702e-a13f-43a24c0ef187.eu-central-1-01.gitpod.dev"
       OTEL_SERVICE_NAME: "backend-flask"
       OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
       OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
-      AWS_XRAY_URL: "*4567--019cbdcc-6028-7c32-82c5-fed902714ec3.eu-central-1-01.gitpod.dev*"
+      AWS_XRAY_URL: "*4567--019cc56b-29b3-702e-a13f-43a24c0ef187.eu-central-1-01.gitpod.dev*"
       AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
       AWS_DEFAULT_REGION: "ca-central-1"
       AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
@@ -17,6 +17,7 @@ services:
       ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
       FLASK_SECRET_KEY: "fc7a4e6fe095329ea84e82f1e33ad6b46175523481049bc0f9"
       COGNITO_REGION: "ca-central-1"
+      CONNECTION_URL: "postgresql://postgres:password@db:5432/cruddur"
     build: ./backend-flask
     ports:
       - "4567:4567"
@@ -24,7 +25,7 @@ services:
       - ./backend-flask:/backend-flask
   frontend-react-js:
     environment:
-      REACT_APP_BACKEND_URL: "https://4567--019cbdcc-6028-7c32-82c5-fed902714ec3.eu-central-1-01.gitpod.dev"
+      REACT_APP_BACKEND_URL: "https://4567--019cc56b-29b3-702e-a13f-43a24c0ef187.eu-central-1-01.gitpod.dev"
       REACT_APP_AWS_PROJECT_REGION: "ca-central-1"
       REACT_APP_AWS_COGNITO_REGION: "ca-central-1"
       REACT_APP_AWS_USER_POOLS_ID: "ca-central-1_HXjic6wve"
@@ -53,7 +54,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
     ports:
-      - "5432:5432"
+      - 5432:5432
     volumes:
       - db:/var/lib/postgresql/data
   xray-daemon:

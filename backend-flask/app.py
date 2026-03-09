@@ -176,7 +176,7 @@ def data_create_message():
 
 
 @app.route("/api/activities/home", methods=["GET"])
-@cognito_auth_required
+# @cognito_auth_required
 def data_home():
     data = HomeActivities.run()
     return data, 200
