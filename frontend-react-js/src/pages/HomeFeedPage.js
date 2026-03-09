@@ -9,7 +9,6 @@ import ReplyForm from "../components/ReplyForm";
 
 // [TODO] Authenication
 import {
-  getCurrentUser,
   fetchUserAttributes,
   fetchAuthSession,
 } from "aws-amplify/auth";

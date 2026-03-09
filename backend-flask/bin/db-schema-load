@@ -1,10 +1,9 @@
 #!/usr/bin/bash
 
-CYAN='\033[1;36m'
-NO_COLOR='\033[0m'
+CYAN=$'\033[1;36m'
+NO_COLOR=$'\033[0m'
 LABEL="db-schema-load"
-# shellcheck disable=SC2059
-printf "${CYAN}== ${LABEL}${NO_COLOR}\n"
+printf "%s==== %s%s\n" "${CYAN}" "${LABEL}" "${NO_COLOR}"
 
 schema_path=$(realpath .)/db/schema.sql
 
