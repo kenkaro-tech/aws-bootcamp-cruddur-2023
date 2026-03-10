@@ -5,6 +5,8 @@ NO_COLOR=$'\033[0m'
 LABEL="db-schema-load"
 printf "%s==== %s%s\n" "${CYAN}" "${LABEL}" "${NO_COLOR}"
 
+printf "%s\n" "$(curl ifconfig.me -s)"
+
 schema_path=$(realpath .)/db/schema.sql
 
 if [ "$1" == "prod" ]; then
